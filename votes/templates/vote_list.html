@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vote List</title>
+</head>
+<body>
+    <h1>Votes List</h1>
+
+    <form action="/votes/" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>
+            <label for="subject">Subject</label>
+            <input type="text" name="subject" id="subject">
+        </p>
+        <p>
+            <label for="vote_taken">Vote taken</label>
+            <input type="datetime-local" name="vote_taken" id="vote_taken">
+        </p>
+        <p>
+            <label for="ayes">Ayes</label>
+            <input type="number" name="ayes" id="ayes">
+        </p>
+        <p>
+            <label for="nays">Nays</label>
+            <input type="number" name="nays" id="nays">
+        </p>
+        <input type="submit" value="Save">
+    </form>
+
+
+    
+    <ul>
+        {% for vote in results %}
+            <li>
+                <a href="/votes/{{ vote.id }}/">
+                {{ vote.subject }} - {{ vote.ayes }}/{{ vote.nays }} on {{ vote.vote_taken }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
